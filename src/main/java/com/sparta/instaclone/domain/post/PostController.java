@@ -15,7 +15,7 @@ public class PostController {
 
     // 게시물 등록
     @PostMapping("/posts")
-    public ResponseEntity<?> createPost(@ModelAttribute PostRequestDto postRequestDto) {
+    public ResponseEntity<PostResponseDto> createPost(@ModelAttribute PostRequestDto postRequestDto) {
         // 서비스 계층에 DTO와 이미지를 전달하여 처리
         PostResponseDto postResponse = postService.createPost(postRequestDto);
         return ResponseEntity.ok(postResponse);

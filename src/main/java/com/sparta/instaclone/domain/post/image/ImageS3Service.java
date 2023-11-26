@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -20,25 +21,32 @@ import java.util.stream.Collectors;
 public class ImageS3Service{
 
     private final AmazonS3 amazonS3;
+    private final ImageRepository imageRepository;
 
     @Value("${cloud.aws.s3.bucketName}")
     private String bucketName; //버킷 이름
 
-    public List<Image> uploadImages(List<MultipartFile> multipartFiles) {
+    // MultipartFile 리스트를 받아 S3에 업로드하고 Image 엔티티 리스트로 변환
+    public List<Image> uploadImages(List<MultipartFile> multipartFiles, Post post) {
+        if (multipartFiles == null || multipartFiles.isEmpty()) {
+            return Collections.emptyList();
+        }
+
         return multipartFiles.stream()
-                .map(this::uploadImage)
+                .map(multipartFile -> uploadImage(multipartFile, post)) // Post 객체를 uploadImage 메소드로 전달
                 .collect(Collectors.toList());
     }
 
-    private Image uploadImage(MultipartFile multipartFile) {
+    private Image uploadImage(MultipartFile multipartFile, Post post) {
         String storedImagePath = uploadImageToS3(multipartFile);
         String originName = multipartFile.getOriginalFilename();
 
-        // 아직 Post 객체와 연결되지 않은 Image 객체를 생성
-        return Image.builder()
-                .originName(originName)
-                .storedImagePath(storedImagePath)
-                .build();
+        // S3에 업로드된 이미지 URL을 가진 Image 엔티티 객체 생성 및 저장
+        Image image = new Image();
+        image.setOriginName(originName);
+        image.setStoredImagePath(storedImagePath);
+        image.setPost(post); // 여기서 Post 객체를 설정
+        return imageRepository.save(image);
     }
 
     // s3에 이미지 업로드

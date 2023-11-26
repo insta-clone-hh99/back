@@ -1,18 +1,21 @@
 package com.sparta.instaclone.domain.post.image;
 
 import com.sparta.instaclone.domain.post.Post;
+import com.sparta.instaclone.global.Timestamped;
 import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 import java.time.LocalDateTime;
 
 @Entity
 @Getter
+@Setter
 @NoArgsConstructor
 @Table(name = "images")
-public class Image {
+public class Image extends Timestamped {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -28,20 +31,11 @@ public class Image {
     @JoinColumn(name = "post_id")
     private Post post; // 관련된 게시물
 
-    @Column(updatable = false)
-    private LocalDateTime createdAt; // 생성 날짜
-
-    @Column
-    private LocalDateTime modifiedAt; // 수정 날짜
-
     @Builder
-    public Image(Long imageId, String originName, String storedImagePath, Post post) {
-        this.imageId = imageId;
+    public Image(String originName, String storedImagePath, Post post) {
         this.originName = originName;
         this.storedImagePath = storedImagePath;
         this.post = post;
-        this.createdAt = LocalDateTime.now();
-        this.modifiedAt = LocalDateTime.now();
     }
 
     public void setPost(Post post) {
