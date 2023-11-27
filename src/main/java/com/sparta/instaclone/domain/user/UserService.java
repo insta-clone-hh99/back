@@ -22,19 +22,14 @@ public class UserService {
         String userName = requestDto.getUserName();
         String nickname = requestDto.getNickname();
 
-        // userName이 허용된 사용자 명단에 있는지 확인
-//        if (!UserEnum.contains(userName)) {
-//            throw new IllegalArgumentException("가입할 수 없는 사용자 이름입니다.");
-//        }
+        // 이메일 중복 확인
+        if (userRepository.findByEmail(email).isPresent()) {
+            throw new IllegalArgumentException("이미 가입된 이메일 주소입니다.");
+        }
 
-//        // userId 중복 확인
-//        if (userRepository.findByUserId(userId).isPresent()) {
-//            throw new IllegalArgumentException("중복된 사용자 ID가 존재합니다.");
-//            }
-
-        // userName 중복 확인
-        if (userRepository.findByUserName(userName).isPresent()) {
-            throw new IllegalArgumentException("가입한 사용자가 존재합니다.");
+        // 닉네임 중복 확인
+        if (userRepository.findByNickname(nickname).isPresent()) {
+            throw new IllegalArgumentException("이미 사용중인 닉네임입니다.");
         }
 
         // 사용자 정보 저장

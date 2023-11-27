@@ -27,6 +27,6 @@ public class SignupRequestDto {
     @NotBlank(message = "이름을 정확히 작성해주세요")
     private String userName;
 
-    @Size(min = 4, max = 12)
+    @Size(min = 1, max = 5)
     private String nickname;
 }
