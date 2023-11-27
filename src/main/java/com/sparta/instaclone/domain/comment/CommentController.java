@@ -3,8 +3,10 @@ package com.sparta.instaclone.domain.comment;
 import com.sparta.instaclone.domain.comment.dto.CommentListResponseDto;
 import com.sparta.instaclone.domain.comment.dto.CommentRequestDto;
 import com.sparta.instaclone.domain.comment.dto.CommentResponseDto;
+import com.sparta.instaclone.global.secuity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,10 +19,12 @@ public class CommentController {
     private final CommentService commentService;
 
     // 댓글 등록
+    // 댓글 등록
     @PostMapping("/comments")
     public ResponseEntity<CommentResponseDto> createComment(@PathVariable Long postId,
-                                                            @RequestParam Long userId,
-                                                            @RequestBody CommentRequestDto requestDto) {
+                                                            @RequestBody CommentRequestDto requestDto,
+                                                            Authentication authentication) {
+        Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getUserId();
         CommentResponseDto commentResponse = commentService.createComment(postId, userId, requestDto);
         return ResponseEntity.ok(commentResponse);
     }
@@ -35,8 +39,10 @@ public class CommentController {
 
     // 댓글 삭제
     @DeleteMapping("/comments/{commentId}")
-    public ResponseEntity<String> deleteComment(@PathVariable Long commentId) {
-        commentService.deleteComment(commentId);
+    public ResponseEntity<String> deleteComment(@PathVariable Long commentId,
+                                                Authentication authentication) {
+        Long userId = ((UserDetailsImpl) authentication.getPrincipal()).getUserId();
+        commentService.deleteComment(commentId, userId);
         return ResponseEntity.ok("댓글 삭제 완료");
     }
 }

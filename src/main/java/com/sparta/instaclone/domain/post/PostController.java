@@ -1,6 +1,7 @@
 package com.sparta.instaclone.domain.post;
 
 import com.sparta.instaclone.domain.post.dto.*;
+import com.sparta.instaclone.global.secuity.UserDetailsImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
@@ -19,8 +20,10 @@ public class PostController {
     // 게시물 등록
     @PostMapping("/posts")
     public ResponseEntity<PostResponseDto> createPost(@ModelAttribute PostRequestDto postRequestDto,
-                                                      @AuthenticationPrincipal Long userId) {
-        // 서비스 계층에 DTO와 이미지를 전달하여 처리
+                                                      Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = userDetails.getUserId(); // 현재 인증된 사용자의 ID
+
         PostResponseDto postResponse = postService.createPost(postRequestDto, userId);
         return ResponseEntity.ok(postResponse);
     }
@@ -29,8 +32,7 @@ public class PostController {
     @GetMapping("/posts")
     public ResponseEntity<PostListResponseDto> getAllPosts() {
         List<PostResponseDto> posts = postService.getAllPosts();
-        PostListResponseDto response = new PostListResponseDto(posts);
-        return ResponseEntity.ok(response);
+        return ResponseEntity.ok(new PostListResponseDto(posts));
     }
 
     // 특정 게시물 상세 조회
@@ -42,15 +44,24 @@ public class PostController {
 
     // 게시물 수정
     @PutMapping("/posts/{postId}")
-    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto postUpdateDto) {
-        PostResponseDto updatedPost = postService.updatePost(postId, postUpdateDto);
+    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId,
+                                                      @ModelAttribute PostUpdateDto postUpdateDto,
+                                                      Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = userDetails.getUserId(); // 현재 인증된 사용자의 ID
+
+        PostResponseDto updatedPost = postService.updatePost(postId, postUpdateDto, userId);
         return ResponseEntity.ok(updatedPost);
     }
 
     // 게시물 삭제
     @DeleteMapping("/posts/{postId}")
-    public ResponseEntity<String> deletePost(@PathVariable Long postId) {
-        postService.deletePost(postId);
+    public ResponseEntity<String> deletePost(@PathVariable Long postId,
+                                             Authentication authentication) {
+        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
+        Long userId = userDetails.getUserId(); // 현재 인증된 사용자의 ID
+
+        postService.deletePost(postId, userId);
         return ResponseEntity.ok("삭제 완료");
     }
 }

@@ -57,7 +57,7 @@ public class CommentService {
 
 
     // 댓글 삭제
-    public void deleteComment(Long commentId) {
+    public void deleteComment(Long commentId, Long userId) {
         // 댓글 존재 여부 확인
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 댓글이 없습니다."));

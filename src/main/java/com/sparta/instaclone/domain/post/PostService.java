@@ -89,7 +89,7 @@ public class PostService {
 
     // 게시물 수정
     @Transactional
-    public PostResponseDto updatePost(Long postId, PostUpdateDto postUpdateDto) {
+    public PostResponseDto updatePost(Long postId, PostUpdateDto postUpdateDto, Long userId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("없는 게시물 입니다."));
 
@@ -117,7 +117,7 @@ public class PostService {
 
     // 게시물 삭제
     @Transactional
-    public void deletePost(Long postId) {
+    public void deletePost(Long postId, Long userId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("없는 게시물 입니다."));
 
