@@ -1,5 +1,7 @@
 package com.sparta.instaclone.domain.post;
 
+import com.sparta.instaclone.domain.like.Like;
+import com.sparta.instaclone.domain.post.dto.PostRequestDto;
 import com.sparta.instaclone.domain.post.image.Image;
 import com.sparta.instaclone.global.Timestamped;
 import jakarta.persistence.*;
@@ -8,7 +10,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -29,6 +31,10 @@ public class Post extends Timestamped {
     // 게시물과 이미지는 일대다 관계
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Image> images;
+
+    // 좋아요
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<Like> likes = new ArrayList<>();
 
     public Post(PostRequestDto dto, List<Image> images) {
         this.content = dto.getContent();

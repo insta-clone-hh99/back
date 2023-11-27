@@ -1,4 +1,4 @@
-package com.sparta.instaclone.domain.post;
+package com.sparta.instaclone.domain.post.dto;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -10,7 +10,8 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostRequestDto {
+public class PostUpdateDto {
     private String content;
-    private List<MultipartFile> images; // 이미지 파일을 받기 위한 MultipartFile 필드 추가
+    private List<MultipartFile> images; // 수정할 이미지들
 }
+

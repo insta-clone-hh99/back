@@ -1,5 +1,6 @@
 package com.sparta.instaclone.global;
 
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -13,6 +14,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<String> handleImageUploadException(RuntimeException e) {
         // 적절한 HTTP 상태 코드와 에러 메시지 반환
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+    }
+
+    // 댓글 조회시 없는 게시물일 때
+    @ExceptionHandler(EntityNotFoundException.class)
+    public ResponseEntity<String> handleEntityNotFound(EntityNotFoundException e) {
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(e.getMessage());
     }
 }
 

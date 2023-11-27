@@ -74,4 +74,20 @@ public class ImageS3Service{
         // 업로드된 파일 URL 반환
         return amazonS3.getUrl(bucketName, changedName).toString();
     }
+
+    // 이미지 삭제 -> 게시판 수정, 삭제 기능에 필요해서 추가함
+    public void deleteImage(Image image) {
+        // S3에서 이미지 파일 삭제
+        amazonS3.deleteObject(bucketName, extractFileName(image.getStoredImagePath()));
+
+        // 데이터베이스에서 Image 엔티티 삭제
+        imageRepository.delete(image);
+    }
+
+    private String extractFileName(String fileUrl) {
+        // S3 URL에서 파일 이름 추출
+        // URL에서 마지막 '/' 이후의 문자열을 파일 이름으로 사용
+        return fileUrl.substring(fileUrl.lastIndexOf("/") + 1);
+    }
+
 }

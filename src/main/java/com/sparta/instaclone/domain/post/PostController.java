@@ -1,5 +1,6 @@
 package com.sparta.instaclone.domain.post;
 
+import com.sparta.instaclone.domain.post.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,5 +28,26 @@ public class PostController {
         List<PostResponseDto> posts = postService.getAllPosts();
         PostListResponseDto response = new PostListResponseDto(posts);
         return ResponseEntity.ok(response);
+    }
+
+    // 특정 게시물 상세 조회
+    @GetMapping("/posts/{postId}")
+    public ResponseEntity<PostDetailsResponseDto> getPostDetails(@PathVariable Long postId) {
+        PostDetailsResponseDto postDetail = postService.getPostDetails(postId);
+        return ResponseEntity.ok(postDetail);
+    }
+
+    // 게시물 수정
+    @PutMapping("/posts/{postId}")
+    public ResponseEntity<PostResponseDto> updatePost(@PathVariable Long postId, @ModelAttribute PostUpdateDto postUpdateDto) {
+        PostResponseDto updatedPost = postService.updatePost(postId, postUpdateDto);
+        return ResponseEntity.ok(updatedPost);
+    }
+
+    // 게시물 삭제
+    @DeleteMapping("/posts/{postId}")
+    public ResponseEntity<String> deletePost(@PathVariable Long postId) {
+        postService.deletePost(postId);
+        return ResponseEntity.ok("삭제 완료");
     }
 }
