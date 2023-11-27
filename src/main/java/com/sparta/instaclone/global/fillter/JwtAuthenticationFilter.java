@@ -1,9 +1,9 @@
-package com.sparta.instaclone.fillter;
+package com.sparta.instaclone.global.fillter;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sparta.instaclone.dto.LoginRequestDto;
-import com.sparta.instaclone.jwt.JwtUtil;
-import com.sparta.instaclone.secuity.UserDetailsImpl;
+import com.sparta.instaclone.domain.user.dto.LoginRequestDto;
+import com.sparta.instaclone.global.jwt.JwtUtil;
+import com.sparta.instaclone.global.secuity.UserDetailsImpl;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

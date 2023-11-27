@@ -1,7 +1,7 @@
-package com.sparta.instaclone.secuity;
+package com.sparta.instaclone.global.secuity;
 
-import com.sparta.instaclone.entity.User;
-import com.sparta.instaclone.repository.UserRepository;
+import com.sparta.instaclone.domain.user.User;
+import com.sparta.instaclone.domain.user.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

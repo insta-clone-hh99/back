@@ -1,7 +1,7 @@
-package com.sparta.instaclone.fillter;
+package com.sparta.instaclone.global.fillter;
 
-import com.sparta.instaclone.jwt.JwtUtil;
-import com.sparta.instaclone.secuity.UserDetailsServiceImpl;
+import com.sparta.instaclone.global.jwt.JwtUtil;
+import com.sparta.instaclone.global.secuity.UserDetailsServiceImpl;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import jakarta.servlet.FilterChain;

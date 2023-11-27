@@ -1,9 +1,7 @@
-package com.sparta.instaclone.service;
+package com.sparta.instaclone.domain.user;
 
-import com.sparta.instaclone.dto.SignupRequestDto;
-import com.sparta.instaclone.entity.User;
-//import com.sparta.instaclone.entity.UserEnum;
-import com.sparta.instaclone.repository.UserRepository;
+import com.sparta.instaclone.domain.user.dto.SignupRequestDto;
+//import com.sparta.instaclone.domain.user.UserEnum;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;

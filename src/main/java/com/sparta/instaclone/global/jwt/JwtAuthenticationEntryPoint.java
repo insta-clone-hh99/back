@@ -1,4 +1,4 @@
-package com.sparta.instaclone.jwt;
+package com.sparta.instaclone.global.jwt;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

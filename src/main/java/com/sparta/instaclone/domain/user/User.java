@@ -1,4 +1,4 @@
-package com.sparta.instaclone.entity;
+package com.sparta.instaclone.domain.user;
 
 import jakarta.persistence.*;
 import lombok.*;

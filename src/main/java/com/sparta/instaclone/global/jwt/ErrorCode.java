@@ -1,4 +1,4 @@
-package com.sparta.instaclone.jwt;
+package com.sparta.instaclone.global.jwt;
 
 public enum ErrorCode {
     UNEXPECTED_ERROR("An unexpected error occurred.");

@@ -1,4 +1,4 @@
-package com.sparta.instaclone.jwt;
+package com.sparta.instaclone.global.jwt;
 
 import io.jsonwebtoken.*;
 import io.jsonwebtoken.security.Keys;

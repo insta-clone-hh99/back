@@ -1,8 +1,6 @@
-package com.sparta.instaclone.controller;
+package com.sparta.instaclone.domain.user;
 
-import com.sparta.instaclone.dto.SignupRequestDto;
-import com.sparta.instaclone.entity.User;
-import com.sparta.instaclone.service.UserService;
+import com.sparta.instaclone.domain.user.dto.SignupRequestDto;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

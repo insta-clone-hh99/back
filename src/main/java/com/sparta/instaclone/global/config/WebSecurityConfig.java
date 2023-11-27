@@ -1,10 +1,10 @@
-package com.sparta.instaclone.config;
+package com.sparta.instaclone.global.config;
 
-import com.sparta.instaclone.fillter.JwtAuthenticationFilter;
-import com.sparta.instaclone.fillter.JwtAuthorizationFilter;
-import com.sparta.instaclone.jwt.JwtAuthenticationEntryPoint;
-import com.sparta.instaclone.jwt.JwtUtil;
-import com.sparta.instaclone.secuity.UserDetailsServiceImpl;
+import com.sparta.instaclone.global.fillter.JwtAuthenticationFilter;
+import com.sparta.instaclone.global.fillter.JwtAuthorizationFilter;
+import com.sparta.instaclone.global.jwt.JwtAuthenticationEntryPoint;
+import com.sparta.instaclone.global.jwt.JwtUtil;
+import com.sparta.instaclone.global.secuity.UserDetailsServiceImpl;
 import lombok.RequiredArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;

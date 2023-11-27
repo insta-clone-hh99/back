@@ -1,4 +1,4 @@
-package com.sparta.instaclone.config;
+package com.sparta.instaclone.global.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;

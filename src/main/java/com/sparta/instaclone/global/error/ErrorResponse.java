@@ -1,4 +1,4 @@
-package com.sparta.instaclone.error;
+package com.sparta.instaclone.global.error;
 
 import lombok.Getter;
 import lombok.Setter;

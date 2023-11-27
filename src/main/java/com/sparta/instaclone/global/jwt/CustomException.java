@@ -1,4 +1,4 @@
-package com.sparta.instaclone.jwt;
+package com.sparta.instaclone.global.jwt;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

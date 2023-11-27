@@ -1,4 +1,4 @@
-package com.sparta.instaclone.dto;
+package com.sparta.instaclone.domain.user.dto;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;

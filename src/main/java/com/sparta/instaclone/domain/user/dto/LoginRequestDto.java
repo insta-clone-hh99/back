@@ -1,4 +1,4 @@
-package com.sparta.instaclone.dto;
+package com.sparta.instaclone.domain.user.dto;
 
 import lombok.Getter;
 import lombok.Setter;

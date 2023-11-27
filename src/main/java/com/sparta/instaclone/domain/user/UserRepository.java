@@ -1,6 +1,5 @@
-package com.sparta.instaclone.repository;
+package com.sparta.instaclone.domain.user;
 
-import com.sparta.instaclone.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.Optional;
