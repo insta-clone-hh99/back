@@ -3,6 +3,8 @@ package com.sparta.instaclone.domain.post;
 import com.sparta.instaclone.domain.post.dto.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -16,9 +18,10 @@ public class PostController {
 
     // 게시물 등록
     @PostMapping("/posts")
-    public ResponseEntity<PostResponseDto> createPost(@ModelAttribute PostRequestDto postRequestDto) {
+    public ResponseEntity<PostResponseDto> createPost(@ModelAttribute PostRequestDto postRequestDto,
+                                                      @AuthenticationPrincipal Long userId) {
         // 서비스 계층에 DTO와 이미지를 전달하여 처리
-        PostResponseDto postResponse = postService.createPost(postRequestDto);
+        PostResponseDto postResponse = postService.createPost(postRequestDto, userId);
         return ResponseEntity.ok(postResponse);
     }
 

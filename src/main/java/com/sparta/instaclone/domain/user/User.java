@@ -16,6 +16,9 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId; // 기본 키로 사용(PK)
 
+    @Column(nullable = false, unique = true)
+    private String email;
+
     @Column(nullable = false)
     private String password;
 
@@ -24,7 +27,4 @@ public class User {
 
     @Column(nullable = false, unique = true)
     private String nickname;
-
-    @Column(nullable = false, unique = true)
-    private String email;
 }

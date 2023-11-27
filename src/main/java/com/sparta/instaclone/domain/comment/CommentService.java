@@ -4,6 +4,8 @@ import com.sparta.instaclone.domain.comment.dto.CommentRequestDto;
 import com.sparta.instaclone.domain.comment.dto.CommentResponseDto;
 import com.sparta.instaclone.domain.post.Post;
 import com.sparta.instaclone.domain.post.PostRepository;
+import com.sparta.instaclone.domain.user.User;
+import com.sparta.instaclone.domain.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -18,16 +20,20 @@ public class CommentService {
 
     private final CommentRepository commentRepository;
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
 
     // 댓글 작성
     @Transactional
-    public CommentResponseDto createComment(Long postId, CommentRequestDto requestDto) {
+    public CommentResponseDto createComment(Long postId, Long userId, CommentRequestDto requestDto) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("없는 게시물 입니다."));
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("없는 사용자 입니다."));
 
         Comment comment = new Comment();
         comment.setComment(requestDto.getComment());
         comment.setPost(post);
+        comment.setUser(user);
 
         Comment savedComment = commentRepository.save(comment);
 

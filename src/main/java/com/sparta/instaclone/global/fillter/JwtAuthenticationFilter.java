@@ -53,6 +53,9 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 
         String accessToken = jwtUtil.createAccessToken(email, role);
 
+        // 응답 헤더에 토큰 추가
+        response.addHeader(JwtUtil.ACCESSTOKEN_HEADER, accessToken);
+
         Map<String, String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);
         tokens.put("email", email);

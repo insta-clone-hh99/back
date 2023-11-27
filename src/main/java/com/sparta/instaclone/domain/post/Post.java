@@ -3,6 +3,7 @@ package com.sparta.instaclone.domain.post;
 import com.sparta.instaclone.domain.like.Like;
 import com.sparta.instaclone.domain.post.dto.PostRequestDto;
 import com.sparta.instaclone.domain.post.image.Image;
+import com.sparta.instaclone.domain.user.User;
 import com.sparta.instaclone.global.Timestamped;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,10 @@ public class Post extends Timestamped {
 
     @Column(nullable = false, length = 500)
     private String content; // 게시물 내용
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     // 게시물과 이미지는 일대다 관계
     @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

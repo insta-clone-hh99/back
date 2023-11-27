@@ -1,6 +1,7 @@
 package com.sparta.instaclone.domain.like;
 
 import com.sparta.instaclone.domain.post.Post;
+import com.sparta.instaclone.domain.user.User;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -20,10 +21,10 @@ public class Like {
     private Long likeId;
 
     @ManyToOne
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
+
+    @ManyToOne
     @JoinColumn(name = "post_id", nullable = false)
     private Post post;
-
-//    @ManyToOne
-//    @JoinColumn(name = "user_id", nullable = false)
-//    private User user;
 }

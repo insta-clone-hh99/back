@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 public class PostResponseDto {
     private Long postId;
-//    private String userName;
+    private String userName;
     private String contents;
     private List<String> imageUrls;
     private int commentCount; // 댓글 수
@@ -25,7 +25,7 @@ public class PostResponseDto {
 
     public PostResponseDto(Post post, int commentCount, int likeCount) {
         this.postId = post.getPostId();
-//        this.userName = post.getUser().getUsername(); // User 엔티티의 getUsername 메서드
+        this.userName = post.getUser().getUserName(); // User 엔티티의 getUsername 메서드
         this.contents = post.getContent();
         this.commentCount = commentCount;
         this.likeCount = likeCount; // 좋아요 수 설정

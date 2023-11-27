@@ -14,8 +14,9 @@ import lombok.Setter;
 @AllArgsConstructor
 public class SignupRequestDto {
 
-//    @NotBlank
-//    private String userId; // 기본 키로 사용(PK)
+    @NotBlank (message = "이메일을 입력해주세요.")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "이메일 형식이 옳바르지 않습니다.")
+    private String email;
 
     @NotBlank
     @Size(min = 4, max = 12)
@@ -25,10 +26,6 @@ public class SignupRequestDto {
 
     @NotBlank(message = "이름을 정확히 작성해주세요")
     private String userName;
-
-    @NotBlank (message = "이메일을 입력해주세요.")
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "이메일 형식이 옳바르지 않습니다.")
-    private String email;
 
     @Size(min = 4, max = 12)
     private String nickname;

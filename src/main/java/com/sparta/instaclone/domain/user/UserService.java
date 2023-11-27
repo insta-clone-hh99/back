@@ -17,10 +17,9 @@ public class UserService {
 
     // 회원가입
     public User signup(SignupRequestDto requestDto) {
-//        String userId = requestDto.getUserId();
+        String email = requestDto.getEmail();
         String password = passwordEncoder.encode(requestDto.getPassword());
         String userName = requestDto.getUserName();
-        String email = requestDto.getEmail();
         String nickname = requestDto.getNickname();
 
         // userName이 허용된 사용자 명단에 있는지 확인
@@ -40,10 +39,9 @@ public class UserService {
 
         // 사용자 정보 저장
         User user = User.builder()
-//              .userId(userId)
+                .email(email)
                 .password(password)
                 .userName(userName)
-                .email(email)
                 .nickname(nickname)
                 .build();
         userRepository.save(user);

@@ -1,6 +1,7 @@
 package com.sparta.instaclone.domain.comment;
 
 import com.sparta.instaclone.domain.post.Post;
+import com.sparta.instaclone.domain.user.User;
 import com.sparta.instaclone.global.Timestamped;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,10 @@ public class Comment extends Timestamped {
 
     @Column(nullable = false)
     private String comment;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")

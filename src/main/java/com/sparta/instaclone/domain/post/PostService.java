@@ -9,6 +9,8 @@ import com.sparta.instaclone.domain.post.dto.PostResponseDto;
 import com.sparta.instaclone.domain.post.dto.PostUpdateDto;
 import com.sparta.instaclone.domain.post.image.Image;
 import com.sparta.instaclone.domain.post.image.ImageS3Service;
+import com.sparta.instaclone.domain.user.User;
+import com.sparta.instaclone.domain.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -22,15 +24,21 @@ import java.util.stream.Collectors;
 public class PostService {
 
     private final PostRepository postRepository;
+    private final UserRepository userRepository;
     private final ImageS3Service imageS3Service;
     private final CommentRepository commentRepository;
     private final LikeRepository likeRepository;
 
     @Transactional
-    public PostResponseDto createPost(PostRequestDto postRequestDto) {
+    public PostResponseDto createPost(PostRequestDto postRequestDto, Long userId) {
+        // User 객체 조회
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new EntityNotFoundException("없는 사용자 입니다."));
+
         // Post 객체 생성
         Post post = new Post();
         post.setContent(postRequestDto.getContent());
+        post.setUser(user); // User 객체 설정
         postRepository.save(post); // Post 객체를 먼저 저장
 
         // 이미지 업로드 및 Image 엔티티 리스트 생성
@@ -73,8 +81,10 @@ public class PostService {
                 .map(CommentResponseDto::new)
                 .collect(Collectors.toList());
 
+        int likeCount = likeRepository.countByPost(post);
+
         // 게시물 상세 정보와 댓글 목록을 포함하는 DTO 반환
-        return new PostDetailsResponseDto(post, commentDtos);
+        return new PostDetailsResponseDto(post, commentDtos, likeCount);
     }
 
     // 게시물 수정

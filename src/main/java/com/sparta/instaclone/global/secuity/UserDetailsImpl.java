@@ -52,7 +52,4 @@ public class UserDetailsImpl implements UserDetails {
         return true;
     }
 
-
-    // 추가적인 getter 메서드를 포함시킬 수 있습니다.
-    // 예를 들어, 사용자의 전체 정보를 반환하는 메서드 등
 }

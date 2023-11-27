@@ -2,10 +2,7 @@ package com.sparta.instaclone.domain.like;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
@@ -17,9 +14,14 @@ public class LikeController {
     private final LikeService likeService;
 
     @PostMapping("/likes")
-    public ResponseEntity<?> toggleLike(@PathVariable Long postId) {
-//        UserDetailsImpl userDetails = (UserDetailsImpl) authentication.getPrincipal();
-        Boolean liked = LikeService.toggleLike(postId);
-        return ResponseEntity.ok(Map.of("liked", liked));
+    public ResponseEntity<String> createLike(@PathVariable Long postId, @RequestParam Long userId) {
+        likeService.createLike(userId, postId);
+        return ResponseEntity.ok("좋아요");
+    }
+
+    @DeleteMapping("/likes")
+    public ResponseEntity<String> deleteLike(@PathVariable Long postId, @RequestParam Long userId) {
+        likeService.deleteLike(userId, postId);
+        return ResponseEntity.ok("좋아요 취소");
     }
 }
