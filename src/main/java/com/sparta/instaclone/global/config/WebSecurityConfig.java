@@ -57,9 +57,6 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // CSRF 설정
         http.csrf(AbstractHttpConfigurer::disable);
-//        http.headers(headers -> headers
-//                .httpStrictTransportSecurity(hsts -> hsts.disable())
-//        );
 
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
@@ -102,6 +99,7 @@ public class WebSecurityConfig {
         configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000"));
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
         configuration.setAllowedHeaders(Arrays.asList("Authorization", "Cache-Control", "Content-Type"));
+        configuration.setExposedHeaders(Arrays.asList("Authorization"));  // 여기에 '노출'할 헤더 추가
         configuration.setAllowCredentials(true);
 
         UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();

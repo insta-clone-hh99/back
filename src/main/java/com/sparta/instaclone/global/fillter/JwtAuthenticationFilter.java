@@ -62,6 +62,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
         response.setHeader("Access-Control-Allow-Credentials", "true");
+        // 추가할 헤더 설정
+        response.setHeader("Access-Control-Expose-Headers", "Authorization, Another-Header, Yet-Another-Header, Other-Custom-Header, Content-Encoding, Kuma-Revision");
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);
