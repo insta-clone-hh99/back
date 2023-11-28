@@ -5,7 +5,7 @@ import lombok.Getter;
 
 @Getter
 @AllArgsConstructor
-public class CustomException extends RuntimeException{
+public class CustomException extends RuntimeException {
     private final ErrorCode errorCode;
 
 //    public CustomException(ErrorCode errorCode) {
@@ -13,8 +13,8 @@ public class CustomException extends RuntimeException{
 //        this.errorCode = errorCode;
 //    }
 
-    // Getter 메서드 등 필요한 메서드 추가
-    public ErrorCode getErrorCode() {
-        return errorCode;
+    @Override
+    public String getMessage() {
+        return errorCode.getMessage();
     }
 }

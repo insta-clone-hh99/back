@@ -19,7 +19,6 @@ public class CommentController {
     private final CommentService commentService;
 
     // 댓글 등록
-    // 댓글 등록
     @PostMapping("/comments")
     public ResponseEntity<CommentResponseDto> createComment(@PathVariable Long postId,
                                                             @RequestBody CommentRequestDto requestDto,

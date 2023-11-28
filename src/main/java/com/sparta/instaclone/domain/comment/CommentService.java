@@ -8,6 +8,7 @@ import com.sparta.instaclone.domain.user.User;
 import com.sparta.instaclone.domain.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -61,6 +62,11 @@ public class CommentService {
         // 댓글 존재 여부 확인
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(() -> new EntityNotFoundException("해당 댓글이 없습니다."));
+
+        // 댓글 작성자와 현재 인증된 사용자가 같은지 확인
+        if (!comment.getUser().getUserId().equals(userId)) {
+            throw new AccessDeniedException("댓글 삭제 권한이 없습니다.");
+        }
 
         // 댓글 삭제
         commentRepository.delete(comment);

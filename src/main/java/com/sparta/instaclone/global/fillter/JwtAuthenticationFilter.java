@@ -50,6 +50,8 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         UserDetailsImpl userDetails = (UserDetailsImpl) authResult.getPrincipal();
         String email = userDetails.getUsername();
         String role = "ROLE_USER";
+        String userName = userDetails.getUserName();
+        String nickname = userDetails.getNickname();
 
         String accessToken = jwtUtil.createAccessToken(email, role);
 
@@ -62,10 +64,14 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         response.setHeader("Access-Control-Max-Age", "3600");
         response.setHeader("Access-Control-Allow-Headers", "Content-Type, Authorization, Content-Length, X-Requested-With");
         response.setHeader("Access-Control-Allow-Credentials", "true");
+        // 추가할 헤더 설정
+        response.setHeader("Access-Control-Expose-Headers", "Authorization, Another-Header, Yet-Another-Header, Other-Custom-Header, Content-Encoding, Kuma-Revision");
 
         Map<String, String> tokens = new HashMap<>();
         tokens.put("accessToken", accessToken);
         tokens.put("email", email);
+        tokens.put("userName", userName);
+        tokens.put("nickname", nickname);
         response.getWriter().write(objectMapper.writeValueAsString(tokens));
         response.setStatus(HttpServletResponse.SC_OK);
     }
