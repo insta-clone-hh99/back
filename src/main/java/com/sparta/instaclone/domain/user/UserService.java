@@ -2,6 +2,7 @@ package com.sparta.instaclone.domain.user;
 
 import com.sparta.instaclone.domain.user.dto.SignupRequestDto;
 //import com.sparta.instaclone.domain.user.UserEnum;
+import com.sparta.instaclone.domain.user.dto.SignupResponseDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,7 +17,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     // 회원가입
-    public User signup(SignupRequestDto requestDto) {
+    public SignupResponseDto signup(SignupRequestDto requestDto) {
         String email = requestDto.getEmail();
         String password = passwordEncoder.encode(requestDto.getPassword());
         String userName = requestDto.getUserName();
@@ -39,8 +40,10 @@ public class UserService {
                 .userName(userName)
                 .nickname(nickname)
                 .build();
-        userRepository.save(user);
-        return user;
+        User savedUser = userRepository.save(user);
+
+        // 사용자 정보 반환
+        return new SignupResponseDto(savedUser.getUserId(), savedUser.getEmail(), savedUser.getUserName(), savedUser.getNickname());
     }
 
 }

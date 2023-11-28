@@ -17,9 +17,11 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     }
 
     @Override
-    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException)  {
-        if (request.getAttribute("exception") == null)
-            request.setAttribute("exception",new CustomException(ErrorCode.UNEXPECTED_ERROR));
-        handlerExceptionResolver.resolveException(request,response,null,(Exception) request.getAttribute("exception"));
+    public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) {
+        // 잘못된 토큰 관련 예외 설정
+        if (request.getAttribute("exception") == null) {
+            request.setAttribute("exception", new CustomException(ErrorCode.INVALID_TOKEN));
+        }
+        handlerExceptionResolver.resolveException(request, response, null, (Exception) request.getAttribute("exception"));
     }
 }

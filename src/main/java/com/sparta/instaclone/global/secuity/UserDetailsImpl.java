@@ -25,6 +25,16 @@ public class UserDetailsImpl implements UserDetails {
         return user.getUserId();
     }
 
+    // 사용자의 이름을 반환
+    public String getUserName() {
+        return user.getUserName();
+    }
+
+    // 사용자의 닉네임을 반환
+    public String getNickname() {
+        return user.getNickname();
+    }
+
     @Override
     public String getPassword() {
         return user.getPassword();

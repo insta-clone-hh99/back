@@ -13,6 +13,7 @@ import com.sparta.instaclone.domain.user.User;
 import com.sparta.instaclone.domain.user.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -93,6 +94,11 @@ public class PostService {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("없는 게시물 입니다."));
 
+        // 사용자 인증 및 권한 확인
+        if (!post.getUser().getUserId().equals(userId)) {
+            throw new AccessDeniedException("수정 권한이 없습니다.");
+        }
+
         post.setContent(postUpdateDto.getContent());
 
         // 기존 이미지 처리
@@ -120,6 +126,11 @@ public class PostService {
     public void deletePost(Long postId, Long userId) {
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("없는 게시물 입니다."));
+
+        // 사용자 인증 및 권한 확인
+        if (!post.getUser().getUserId().equals(userId)) {
+            throw new AccessDeniedException("삭제 권한이 없습니다.");
+        }
 
         // 연관된 댓글 삭제
         commentRepository.deleteByPost(post);
