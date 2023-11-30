@@ -16,4 +16,6 @@ public class WebConfig implements WebMvcConfigurer {
                 .exposedHeaders("Authorization", "Another-Header", "Yet-Another-Header", "Other-Custom-Header", "Content-Encoding", "Kuma-Revision")
                 .allowCredentials(true);
     }
+
+
 }

@@ -57,9 +57,9 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         // CSRF 설정
         http.csrf(AbstractHttpConfigurer::disable);
-        http.headers(headers -> headers
-                .httpStrictTransportSecurity(hsts -> hsts.disable())
-        );
+//        http.headers(headers -> headers
+//                .httpStrictTransportSecurity(hsts -> hsts.disable())
+//        );
 
         http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
 
