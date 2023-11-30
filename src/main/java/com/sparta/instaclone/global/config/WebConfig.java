@@ -10,7 +10,7 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addCorsMappings(CorsRegistry registry) {
         registry.addMapping("/**")
-                .allowedOrigins("http://localhost:3000")
+                .allowedOrigins("https://clone-project-insta.vercel.app")
                 .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // OPTIONS 메서드 추가
                 .allowedHeaders("*")  // 허용할 헤더 추가
                 .exposedHeaders("Authorization", "Another-Header", "Yet-Another-Header", "Other-Custom-Header", "Content-Encoding", "Kuma-Revision")
