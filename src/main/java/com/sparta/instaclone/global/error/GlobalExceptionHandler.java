@@ -29,7 +29,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public ResponseEntity<String> handleImageUploadException(RuntimeException e) {
         // 적절한 HTTP 상태 코드와 에러 메시지 반환
-        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(e.getMessage());
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body(e.getMessage());
     }
 
     // 댓글 조회시 없는 게시물일 때
